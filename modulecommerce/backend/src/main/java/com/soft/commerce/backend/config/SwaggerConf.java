@@ -1,4 +1,4 @@
-package com.soft.chat.backend.config;
+package com.soft.commerce.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class SwaggerConf {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.soft.chat.backend.web.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.soft.commerce.backend.web.rest"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
