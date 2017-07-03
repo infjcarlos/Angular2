@@ -13,17 +13,17 @@ import java.util.Set;
 public class Role implements Serializable{
     private static final Long serialVersionUID = 789456L;
     @Id
-    private Integer roleId;
+    private Long roleId;
     private String name;
     private Set<UserRole> userRoleSet = new HashSet<>();
 
     public Role() { }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
