@@ -5,11 +5,12 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const appRoutes: Routes = [
   { path: '', component: NavBarComponent },
   { path: 'login',      component: LoginComponent },
-  /*{ path: 'forms',      component: FormsComponent },*/
+  { path: 'register',      component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -18,7 +19,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

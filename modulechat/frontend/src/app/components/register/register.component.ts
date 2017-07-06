@@ -2,19 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router) {   }
+  constructor(private router: Router) { }
 
   goToLogin(){
     this.router.navigate( ['/login'], {queryParams: {sessionId: new Date().getTime()}} );
   }
   goToRegister(){
     this.router.navigate( ['/register'], {queryParams: {sessionId: new Date().getTime()}} );
+  }
+  goToHome(){
+    this.router.navigate( ['/']);
   }
   ngOnInit() {
   }

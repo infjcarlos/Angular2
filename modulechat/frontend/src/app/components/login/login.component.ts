@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  goToLogin(){
+    this.router.navigate( ['/login'], {queryParams: {sessionId: new Date().getTime()}} );
+  }
+  goToRegister(){
+    this.router.navigate( ['/register'], {queryParams: {sessionId: new Date().getTime()}} );
+  }
+
+  goToHome(){
+    this.router.navigate( ['/'] );
+  }
 
   ngOnInit() {
   }
