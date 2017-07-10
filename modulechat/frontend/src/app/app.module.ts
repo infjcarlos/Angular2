@@ -6,11 +6,13 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: NavBarComponent },
   { path: 'login',      component: LoginComponent },
   { path: 'register',      component: RegisterComponent },
+  { path: 'chat',      component: ChatComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -20,7 +22,8 @@ const appRoutes: Routes = [
     NavBarComponent,
     LoginComponent,
     PageNotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChatComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
