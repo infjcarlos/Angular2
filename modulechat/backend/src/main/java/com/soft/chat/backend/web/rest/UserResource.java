@@ -1,6 +1,7 @@
 package com.soft.chat.backend.web.rest;
 
-//import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Timed;
+import com.soft.chat.backend.domain.User;
 import com.soft.chat.backend.service.UserService;
 import com.soft.chat.backend.service.dto.UserDTO;
 import com.soft.chat.backend.web.rest.util.HeaderUtil;
@@ -36,15 +37,15 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-   // @Timed
+    @Timed
     public ResponseEntity<UserDTO> createBank(@Valid @RequestBody UserDTO bankDTO) throws URISyntaxException {
-        log.debug("REST request to save Bank : {}", bankDTO);
+        log.debug("REST request to save User : {}", bankDTO);
         if (bankDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID")).body(null);
         }
-        UserDTO result = userService.save(bankDTO);
-        return ResponseEntity.created(new URI("/api/banks/" + result.getId()))
+        User result = userService.save(bankDTO);
+        return ResponseEntity.created(new URI("/api/users/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-                .body(result);
+                .body(bankDTO);/*result*/
     }
 }
