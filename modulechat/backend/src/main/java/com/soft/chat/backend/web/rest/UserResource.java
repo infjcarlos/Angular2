@@ -36,6 +36,20 @@ public class UserResource {
         return "car";
     }
 
+    /*
+    @PostMapping("/users")
+    @Timed
+    public ResponseEntity<UserDTO> createBank(@Valid @RequestBody UserDTO bankDTO) throws URISyntaxException {
+        log.debug("REST request to save User : {}", bankDTO);
+        if (bankDTO.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID")).body(null);
+        }
+        UserDTO result = userService.save(bankDTO);
+        return ResponseEntity.created(new URI("/api/users/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+    }
+    */
     @PostMapping("/users")
     @Timed
     public ResponseEntity<UserDTO> createBank(@Valid @RequestBody UserDTO bankDTO) throws URISyntaxException {
@@ -46,6 +60,6 @@ public class UserResource {
         User result = userService.save(bankDTO);
         return ResponseEntity.created(new URI("/api/users/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-                .body(bankDTO);/*result*/
+                .body(bankDTO);
     }
 }

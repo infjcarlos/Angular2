@@ -24,14 +24,23 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     //private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository/*, UserMapper userMapper*/){
+    public UserServiceImpl(UserRepository userRepository/*, UserMapper userMapper */){
         this.userRepository = userRepository;
         //this.userMapper = userMapper;
     }
+    /*
+    @Override
+    public UserDTO save(UserDTO userDTO) { //public UserDTO save(UserDTO userDTO)
 
+        log.debug("Request to save user : {}", userDTO);
+        User user = userMapper.toEntity(userDTO);
+        user = userRepository.save(user);
+        UserDTO result = userMapper.toDto(user);
+        return result;
+    }
+    */
     @Override
     public User save(UserDTO userDTO) { //public UserDTO save(UserDTO userDTO)
-
         log.debug("Request to save user : {}", userDTO);
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
