@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
  * Created by jcori on 6/30/2017.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id

@@ -4,7 +4,6 @@ import com.soft.chat.backend.domain.User;
 import com.soft.chat.backend.repository.UserRepository;
 import com.soft.chat.backend.service.UserService;
 import com.soft.chat.backend.service.dto.UserDTO;
-import com.soft.chat.backend.service.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,25 +21,13 @@ public class UserServiceImpl implements UserService {
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
-    //private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository/*, UserMapper userMapper */){
+    public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
-        //this.userMapper = userMapper;
     }
-    /*
-    @Override
-    public UserDTO save(UserDTO userDTO) { //public UserDTO save(UserDTO userDTO)
 
-        log.debug("Request to save user : {}", userDTO);
-        User user = userMapper.toEntity(userDTO);
-        user = userRepository.save(user);
-        UserDTO result = userMapper.toDto(user);
-        return result;
-    }
-    */
     @Override
-    public User save(UserDTO userDTO) { //public UserDTO save(UserDTO userDTO)
+    public User save(UserDTO userDTO) {
         log.debug("Request to save user : {}", userDTO);
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
@@ -54,17 +41,49 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDTO> findAll(Pageable pageable) {
-        /*
-        log.debug("Request to get all Cities");
-        return userRepository.findAll(pageable)
-                .map(userMapper::toDto);
-        */
-        return null;
+    public User updateUser(UserDTO userDTO) {
+        User user = userRepository.findOne(userDTO.getId());
+        user.setFirstName(userDTO.getFirstName() );
+        user.setLastName(userDTO.getLastName() );
+        user.setUsername(userDTO.getUsername() );
+        user.setPassword(userDTO.getPassword() );
+        user.setEmail( userDTO.getEmail() );
+        user.setStatus( userDTO.getStatus() );
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User updateUserById(UserDTO userDTO, Long id){
+        User user = userRepository.findOne(id);
+        user.setFirstName(userDTO.getFirstName() );
+        user.setLastName(userDTO.getLastName() );
+        user.setUsername(userDTO.getUsername() );
+        user.setPassword(userDTO.getPassword() );
+        user.setEmail( userDTO.getEmail() );
+        user.setStatus( userDTO.getStatus() );
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<User> findAll(Pageable pageable) {
+        log.debug("Request to get all users");
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User findOne(Long id) {
+        log.debug("Request to get User : {}", id);
+        return userRepository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
-
+        log.debug("Request to delete User : {}", id);
+        userRepository.delete(id);
     }
+
 }
