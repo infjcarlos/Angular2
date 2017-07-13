@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(UserDTO userDTO) {
+        log.debug("Request to Update By user", userDTO);
         User user = userRepository.findOne(userDTO.getId());
         user.setFirstName(userDTO.getFirstName() );
         user.setLastName(userDTO.getLastName() );
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUserById(UserDTO userDTO, Long id){
+        log.debug("Request to Update By Id user", userDTO);
         User user = userRepository.findOne(id);
         user.setFirstName(userDTO.getFirstName() );
         user.setLastName(userDTO.getLastName() );
