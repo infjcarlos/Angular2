@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,9 @@ export class LoginComponent implements OnInit {
   goToRegister(){
     this.router.navigate( ['/register'], {queryParams: {sessionId: new Date().getTime()}} );
   }*/
+  onSubmitLogin(form:any){
+    alert("car");
+  }
 
   goToHome(){
     this.router.navigate( ['/'] );
