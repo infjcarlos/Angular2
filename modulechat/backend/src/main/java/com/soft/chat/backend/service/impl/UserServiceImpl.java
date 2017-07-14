@@ -53,9 +53,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return user;
     }
-
+    @Override
     @Transactional(readOnly = true)
-    public User findOne(String username) {
+    public User findOneByUserName(String username) {
         log.debug("Request to get User : {}", username);
         User user = userRepository.findOneWithEagerUser(username);
         return user;

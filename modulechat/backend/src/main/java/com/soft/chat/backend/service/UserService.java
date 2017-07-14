@@ -12,6 +12,7 @@ public interface UserService {
     User save(UserDTO userDTO);
     Page<User> findAll(Pageable pageable);
     User findOne(Long id);
+    User findOneByUserName(String username);
     User updateUser(UserDTO userDTO);
     User updateUserById(UserDTO userDTO, Long id);
     void delete(Long id);

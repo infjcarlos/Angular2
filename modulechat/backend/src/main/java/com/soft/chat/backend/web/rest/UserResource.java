@@ -5,6 +5,7 @@ import com.soft.chat.backend.domain.User;
 import com.soft.chat.backend.service.UserService;
 import com.soft.chat.backend.service.dto.UserDTO;
 import com.soft.chat.backend.web.rest.util.PaginationUtil;
+import com.soft.chat.backend.web.rest.util.ResponseUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -92,15 +93,16 @@ public class UserResource {
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    /*
+
     @GetMapping("/users/{username}")
     @Timed
     public ResponseEntity<User> getDevice(@PathVariable String username) {
         log.debug("REST request to get User : {}", username);
-        User deviceDTO = userService.findOne(username);
+        User deviceDTO = userService.findOneByUserName(username);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(deviceDTO));
     }
-    */
+
+
     @DeleteMapping("/users/{id}")
     @Timed
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
