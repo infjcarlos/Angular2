@@ -92,6 +92,15 @@ public class UserResource {
                         HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    /*
+    @GetMapping("/users/{username}")
+    @Timed
+    public ResponseEntity<User> getDevice(@PathVariable String username) {
+        log.debug("REST request to get User : {}", username);
+        User deviceDTO = userService.findOne(username);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(deviceDTO));
+    }
+    */
     @DeleteMapping("/users/{id}")
     @Timed
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

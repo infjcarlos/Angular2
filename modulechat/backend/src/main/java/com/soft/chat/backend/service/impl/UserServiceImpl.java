@@ -54,6 +54,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
+    public User findOne(String username) {
+        log.debug("Request to get User : {}", username);
+        User user = userRepository.findOneWithEagerUser(username);
+        return user;
+    }
+
     @Override
     public User updateUserById(UserDTO userDTO, Long id){
         log.debug("Request to Update By Id user", userDTO);
