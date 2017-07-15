@@ -1,8 +1,11 @@
 package com.soft.chat.backend.service.impl;
 
 import com.soft.chat.backend.domain.Status;
+import com.soft.chat.backend.repository.StatusRepository;
 import com.soft.chat.backend.service.StatusService;
 import com.soft.chat.backend.service.dto.StatusDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,19 +17,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class StatusServiceImpl implements StatusService{
+
+    private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final StatusRepository statusRepository;
+
+    public StatusServiceImpl(StatusRepository statusRepository){
+        this.statusRepository = statusRepository;
+    }
     @Override
     public Status save(StatusDTO statusDTO) {
-        return null;
+        log.debug("Request to save status : {}", statusDTO);
+        Status status = new Status();
+        status.setName(statusDTO.getName());
+        status = statusRepository.save(status);
+        return status;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Status> findAll(Pageable pageable) {
-        return null;
+        log.debug("Request to get all status");
+        return statusRepository.findAll(pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Status findOne(Long id) {
-        return null;
+        log.debug("Request to get Status : {}", id);
+        return statusRepository.findOne(id);
     }
 
     @Override
@@ -41,6 +59,8 @@ public class StatusServiceImpl implements StatusService{
 
     @Override
     public void delete(Long id) {
+        log.debug("Request to delete Status : {}", id);
+        statusRepository.delete(id);
 
     }
 }
