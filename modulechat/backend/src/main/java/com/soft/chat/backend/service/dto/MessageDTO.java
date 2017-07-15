@@ -8,10 +8,19 @@ import java.util.Date;
  */
 public class MessageDTO implements Serializable {
 
+    private Long id;
     private String content;
     private Long statusId;
     private Date creationDate;
     private Long UserId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getContent() {
         return content;
