@@ -1,6 +1,7 @@
 package com.soft.chat.backend.service.impl;
 
 import com.soft.chat.backend.domain.User;
+import com.soft.chat.backend.domain.enumeration.UserType;
 import com.soft.chat.backend.repository.UserRepository;
 import com.soft.chat.backend.service.UserService;
 import com.soft.chat.backend.service.dto.UserDTO;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
-        user.setStatus(userDTO.getStatus());
+        user.setStatus(UserType.STATUS_ACTIVE.getKey());
         user = userRepository.save(user);
         return user;
     }
@@ -84,6 +85,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<User> findAllUserActive(Pageable pageable, String status) {
+        log.debug("Request to get all users activies");
+        return userRepository.findAllUserActive(pageable, status);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public User findOne(Long id) {
         log.debug("Request to get User : {}", id);
         return userRepository.findOne(id);
@@ -93,6 +101,13 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         log.debug("Request to delete User : {}", id);
         userRepository.delete(id);
+    }
+
+    @Override
+    public void deleteLogic(Long id) {
+        User user = userRepository.findOne(id);
+        user.setStatus( UserType.STATUS_REMOVED.getKey() );
+        userRepository.save(user);
     }
 
 }

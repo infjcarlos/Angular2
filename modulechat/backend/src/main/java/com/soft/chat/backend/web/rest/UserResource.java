@@ -2,6 +2,7 @@ package com.soft.chat.backend.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.soft.chat.backend.domain.User;
+import com.soft.chat.backend.domain.enumeration.UserType;
 import com.soft.chat.backend.service.UserService;
 import com.soft.chat.backend.service.dto.UserDTO;
 import com.soft.chat.backend.web.rest.util.PaginationUtil;
@@ -82,6 +83,16 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+    @GetMapping("/users/active")
+    @Timed
+    public ResponseEntity<List<User>> getAllUsersActive(@ApiParam Pageable pageable) throws URISyntaxException {
+        log.debug("REST request to get a page of Users Active");
+        Page<User> page = userService.findAllUserActive(pageable, UserType.STATUS_REMOVED.getKey());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users/active");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
     @GetMapping("/users/{id}")
     @Timed
     public ResponseEntity<User> getUser(@PathVariable Long id) {
@@ -108,6 +119,14 @@ public class UserResource {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         log.debug("REST request to delete User : {}", id);
         userService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @DeleteMapping("/users/removed/{id}")
+    @Timed
+    public ResponseEntity<Void> disableUser(@PathVariable Long id) {
+        log.debug("REST request to delete User Logic: {}", id);
+        userService.deleteLogic(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
