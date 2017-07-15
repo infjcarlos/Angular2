@@ -29,7 +29,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class StatusResource {
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private final Logger log = LoggerFactory.getLogger(StatusResource.class);
     private static final String ENTITY_NAME = "status";
     private final StatusService statusService;
     public StatusResource(StatusService statusService) {
@@ -60,7 +60,7 @@ public class StatusResource {
 
     @GetMapping("/status/{id}")
     @Timed
-    public ResponseEntity<Status> getFindOneUser(@PathVariable Long id) {
+    public ResponseEntity<Status> getFindOneStatus(@PathVariable Long id) {
         log.debug("REST request to get Status : {}", id);
         Status status = statusService.findOne(id);
         return Optional.ofNullable(status)

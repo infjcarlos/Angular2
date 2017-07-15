@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StatusServiceImpl implements StatusService{
 
-    private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(StatusServiceImpl.class);
     private final StatusRepository statusRepository;
 
     public StatusServiceImpl(StatusRepository statusRepository){
