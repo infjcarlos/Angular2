@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
  * Created by jcori on 6/30/2017.
  */
 public interface UserRepository extends JpaRepository<User,Long>{
-    @Query("select user from User user where user.username =:username")
-    User findOneWithEagerUser(@Param("username") String username);
+    @Query("select user from User user where user.username =:login")
+    User findOneWithEagerUser(@Param("login") String login);
 }

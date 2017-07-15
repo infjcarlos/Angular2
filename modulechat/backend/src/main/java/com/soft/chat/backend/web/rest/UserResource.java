@@ -94,12 +94,12 @@ public class UserResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/users/{username}")
+    @GetMapping("/users/find/{username}")
     @Timed
-    public ResponseEntity<User> getDevice(@PathVariable String username) {
+    public ResponseEntity<User> getUser(@PathVariable String username) {
         log.debug("REST request to get User : {}", username);
-        User deviceDTO = userService.findOneByUserName(username);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(deviceDTO));
+        User user = userService.findOneByUserName(username);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(user));
     }
 
 
