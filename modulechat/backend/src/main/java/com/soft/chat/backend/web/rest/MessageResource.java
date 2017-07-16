@@ -66,4 +66,12 @@ public class MessageResource {
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, messageDTO.getId().toString()))
                 .body(result);
     }
+
+    @DeleteMapping("/messages/{id}")
+    @Timed
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        log.debug("REST request to delete Message all : {}", id);
+        messageService.deleteAllMessage(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
 }

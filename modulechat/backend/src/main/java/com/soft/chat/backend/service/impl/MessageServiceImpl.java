@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jcori on 7/13/2017.
@@ -61,6 +62,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List<Message> findAllMessage(String ownerID) {
+        return null;
+    }
+
+    @Override
     public Message findOne(Long id) {
         return null;
     }
@@ -82,5 +88,12 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public void deleteAllMessage(Long ownerId) {
+        //Message message = messageRepository.findOne(ownerId);
+        List<Message> messages = messageRepository.findAllMessage(ownerId);
+        System.out.println(messages.size());
     }
 }

@@ -75,6 +75,7 @@ public class DestinationMessageServiceImpl implements DestinationMessageService 
         message.setUser(userOwner);
         message = messageRepository.save(message);
         ////////////////////////////
+        //message = messageRepository.findOne(message.getId());
         destinationMessage.setMessage(message);
 
         destinationMessage = destinationMessageRepository.save(destinationMessage);

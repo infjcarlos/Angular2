@@ -12,7 +12,7 @@ public class MessageDTO implements Serializable {
     private String content;
     private Long statusId;
     private Date creationDate;
-    private Long UserId;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -47,10 +47,10 @@ public class MessageDTO implements Serializable {
     }
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 }

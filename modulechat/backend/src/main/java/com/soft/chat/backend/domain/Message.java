@@ -21,15 +21,7 @@ public class Message {
     private Date creationDate;
 
     @ManyToOne
-    private User User;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private User user;
 
     public Long getId() {
         return id;
@@ -37,6 +29,14 @@ public class Message {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Status getStatus() {
@@ -55,12 +55,12 @@ public class Message {
         this.creationDate = creationDate;
     }
 
-    public com.soft.chat.backend.domain.User getUser() {
-        return User;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser(com.soft.chat.backend.domain.User user) {
-        User = user;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

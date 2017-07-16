@@ -5,14 +5,18 @@ import com.soft.chat.backend.service.dto.MessageDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Created by jcori on 7/13/2017.
  */
 public interface MessageService {
     Message save(MessageDTO messageDTO);
     Page<Message> findAll(Pageable pageable);
+    List<Message> findAllMessage(String ownerID);
     Message findOne(Long id);
     Message update(MessageDTO messageDTO);
     Message updateById(MessageDTO messageDTO, Long id);
     void delete(Long id);
+    void deleteAllMessage(Long ownerId);
 }
