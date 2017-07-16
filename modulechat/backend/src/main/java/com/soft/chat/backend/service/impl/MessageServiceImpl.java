@@ -97,14 +97,9 @@ public class MessageServiceImpl implements MessageService {
         List<DestinationMessage> dm = new ArrayList<>();
 
         for(Message msg: messages){
-            System.out.println(" - "+msg.getId());
-
             DestinationMessage destinationMessage = new DestinationMessage();
             destinationMessage = destinationMessageRepository.getAllDM( msg.getId() ) ;
-
             dm.add(destinationMessage);
-            System.out.println("-----------");
-
         }
         for(DestinationMessage destinationMessage : dm){
             destinationMessageRepository.delete(destinationMessage.getId());
@@ -112,9 +107,6 @@ public class MessageServiceImpl implements MessageService {
         for(Message msg : messages){
             messageRepository.delete(msg.getId());
         }
-
-        //Message message = messageRepository.findOne(ownerId);
-        System.out.println(messages.size());
     }
 
     @Override

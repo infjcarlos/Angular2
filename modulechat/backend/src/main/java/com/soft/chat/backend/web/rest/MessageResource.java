@@ -69,7 +69,7 @@ public class MessageResource {
 
     @DeleteMapping("/messages/{id}")
     @Timed
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMessageAllDestination(@PathVariable Long id) {
         log.debug("REST request to delete Message all : {}", id);
         //messageService.deleteAllMessage(id);
         messageService.deleteAllMessageT(id);
