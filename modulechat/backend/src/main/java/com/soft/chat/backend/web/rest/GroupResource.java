@@ -78,4 +78,26 @@ public class GroupResource {
         groupService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @PutMapping("/group")
+    @Timed
+    public ResponseEntity<Group> update(@Valid @RequestBody GroupDTO groupDTO) throws URISyntaxException {
+        log.debug("REST request to update group : {}", groupDTO);
+        if (groupDTO.getId() == 0) {//null
+            return createGroup(groupDTO);
+        }
+        Group result = groupService.update(groupDTO);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, groupDTO.getId().toString()))
+                .body(result);
+    }
+    @PutMapping("/group/{id}")
+    @Timed
+    public ResponseEntity<Group> updateById(@Valid @RequestBody GroupDTO groupDTO, @PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to update Group with Id: {}", groupDTO);
+        Group result = groupService.updateById(groupDTO, id);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, groupDTO.getId().toString()))
+                .body(result);
+    }
 }

@@ -61,12 +61,25 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public Group update(GroupDTO groupDTO) {
-        return null;
+        log.debug("Request to Update By group", groupDTO);
+        Group group = groupRepository.findOne(groupDTO.getId());
+        group.setName(groupDTO.getName());
+        group.setLogo(groupDTO.getLogo());
+        User owner = userRepository.findOne(groupDTO.getOwnerId());
+        group.setOwner(owner);
+        group = groupRepository.save(group);
+        return group;
     }
 
     @Override
     public Group updateById(GroupDTO groupDTO, Long id) {
-        return null;
+        log.debug("Request to Update By Id group", groupDTO);
+        Group group = groupRepository.findOne(id);
+        group.setName(groupDTO.getName());
+        group.setLogo(groupDTO.getLogo());
+        group = groupRepository.save(group);
+
+        return group;
     }
 
     @Override
