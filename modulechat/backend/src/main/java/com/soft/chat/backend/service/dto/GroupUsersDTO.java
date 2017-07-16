@@ -1,29 +1,18 @@
-package com.soft.chat.backend.domain;
+package com.soft.chat.backend.service.dto;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by jcori on 7/12/2017.
+ * Created by jcarlos on 7/16/2017.
  */
-@Entity
-@Table(name = "Groups")
-public class Group {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class GroupUsersDTO {
+    //group
     private Long id;
-
-    @ManyToOne
-    private User owner;
-
+    private Long ownerId;
     private String name;
     private String logo;
     private Date creationDate;
-
-    //to delete
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<GroupUser> groupUsers;
+    //group user
 
     public Long getId() {
         return id;
@@ -33,12 +22,12 @@ public class Group {
         this.id = id;
     }
 
-    public User getOwner() {
-        return owner;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getName() {

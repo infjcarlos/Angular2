@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.soft.chat.backend.domain.GroupUser;
 import com.soft.chat.backend.service.GroupUserService;
 import com.soft.chat.backend.service.dto.GroupUserDTO;
+import com.soft.chat.backend.service.dto.GroupUsersDTO;
 import com.soft.chat.backend.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +49,19 @@ public class GroupUserResource {
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
+    @PostMapping("/groupusers/saveGroupUser")
+    @Timed
+    public ResponseEntity<GroupUser> createGroupWithUser(@Valid @RequestBody GroupUsersDTO groupUsersDTO) throws URISyntaxException {
+        log.debug("REST request to save Group with User : {}", groupUsersDTO);
+        if (groupUsersDTO.getId() != 0) { //null
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new group with user cannot already have an ID")).body(null);
+        }
+        GroupUser result = groupUserService.saveGroup(groupUsersDTO);
+        return ResponseEntity.created(new URI("/api/groupusers/saveGroupUser" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+    }
+
     /*
     @PutMapping("/groupusers")
     @Timed
@@ -97,6 +111,13 @@ public class GroupUserResource {
     public ResponseEntity<Void> deleteGroupUser(@PathVariable Long id) {
         log.debug("REST request to delete Group User : {}", id);
         groupUserService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    @DeleteMapping("/groupusers/all/{id}")
+    @Timed
+    public ResponseEntity<Void> deleteGroupUserAll(@PathVariable Long id) {
+        log.debug("REST request to delete Group User all: {}", id);
+        groupUserService.deleteAllGroupT(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

@@ -60,7 +60,7 @@ public class DestinationMessageResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new destination with messages cannot already have an ID")).body(null);
         }
         DestinationMessage result = destinationMessageService.saveMessage(destinationMessagesDTO);
-        return ResponseEntity.created(new URI("/api/destination_messages/send" + result.getId()))
+        return ResponseEntity.created(new URI("/api/destination_messages/sendDestine" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }

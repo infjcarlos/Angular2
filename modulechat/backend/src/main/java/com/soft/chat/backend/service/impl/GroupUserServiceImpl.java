@@ -8,12 +8,16 @@ import com.soft.chat.backend.repository.GroupUserRepository;
 import com.soft.chat.backend.repository.UserRepository;
 import com.soft.chat.backend.service.GroupUserService;
 import com.soft.chat.backend.service.dto.GroupUserDTO;
+import com.soft.chat.backend.service.dto.GroupUsersDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jcori on 7/13/2017.
@@ -49,6 +53,26 @@ public class GroupUserServiceImpl implements GroupUserService{
     }
 
     @Override
+    public GroupUser saveGroup(GroupUsersDTO groupUsersDTO) {
+        log.debug("Request to save group user all : {}", groupUsersDTO);
+        GroupUser groupUser = new GroupUser();
+        User owner = userRepository.findOne(groupUsersDTO.getOwnerId());
+        groupUser.setUser(owner);
+
+        ///////////create group
+        Group group = new Group();
+        group.setName(groupUsersDTO.getName());
+        group.setLogo(groupUsersDTO.getLogo());
+        group.setCreationDate(new Date());
+        group.setOwner(owner);
+        group = groupRepository.save(group);
+        ///////////
+        groupUser.setGroup(group);
+        groupUserRepository.save(groupUser);
+        return groupUser;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<GroupUser> findAll(Pageable pageable) {
         log.debug("Request to get all group user");
@@ -76,5 +100,14 @@ public class GroupUserServiceImpl implements GroupUserService{
     public void delete(Long id) {
         log.debug("Request to delete group user: {}", id);
         groupUserRepository.delete(id);
+    }
+
+    @Override
+    public void deleteAllGroupT(Long ownerId) {
+        log.debug("Request to delete Group ALL : {}", ownerId);
+        List<Group> group = groupRepository.findAllGroup(ownerId);
+        for(Group msg : group){
+            groupRepository.delete(msg.getId());
+        }
     }
 }
