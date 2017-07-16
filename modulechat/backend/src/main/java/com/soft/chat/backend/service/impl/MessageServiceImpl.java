@@ -40,7 +40,7 @@ public class MessageServiceImpl implements MessageService {
     public Message save(MessageDTO messageDTO) {
         log.debug("Request to save message : {}", messageDTO);
         Message message = new Message();
-        message.setContent("content");
+        message.setContent(messageDTO.getContent());
         message.setCreationDate(new Date());
 
         Status status = statusRepository.findOne(messageDTO.getStatusId() );
@@ -72,7 +72,11 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message updateById(MessageDTO messageDTO, Long id) {
-        return null;
+        log.debug("Request to Update By Id message", messageDTO);
+        Message message = messageRepository.findOne(id);
+        message.setContent(messageDTO.getContent());
+        message = messageRepository.save(message);
+        return message;
     }
 
     @Override

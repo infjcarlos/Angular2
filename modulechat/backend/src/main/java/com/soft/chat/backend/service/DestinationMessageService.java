@@ -2,6 +2,7 @@ package com.soft.chat.backend.service;
 
 import com.soft.chat.backend.domain.DestinationMessage;
 import com.soft.chat.backend.service.dto.DestinationMessageDTO;
+import com.soft.chat.backend.service.dto.DestinationMessagesDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 /**
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface DestinationMessageService {
     DestinationMessage save(DestinationMessageDTO destinationMessageDTO);
+    DestinationMessage saveMessage(DestinationMessagesDTO destinationMessagesDTO);
     Page<DestinationMessage> findAll(Pageable pageable);
     DestinationMessage findOne(Long id);
     DestinationMessage update(DestinationMessageDTO destinationMessageDTO);

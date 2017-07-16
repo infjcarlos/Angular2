@@ -5,6 +5,7 @@ import com.soft.chat.backend.domain.DestinationMessage;
 import com.soft.chat.backend.domain.Message;
 import com.soft.chat.backend.service.DestinationMessageService;
 import com.soft.chat.backend.service.dto.DestinationMessageDTO;
+import com.soft.chat.backend.service.dto.DestinationMessagesDTO;
 import com.soft.chat.backend.web.rest.util.PaginationUtil;
 import com.soft.chat.backend.web.rest.util.ResponseUtil;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,18 @@ public class DestinationMessageResource {
         }
         DestinationMessage result = destinationMessageService.save(destinationMessageDTO);
         return ResponseEntity.created(new URI("/api/destination_messages/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+    }
+    @PostMapping("/destination_messages/sendDestine")
+    @Timed
+    public ResponseEntity<DestinationMessage> createMessageWithDestination(@Valid @RequestBody DestinationMessagesDTO destinationMessagesDTO) throws URISyntaxException {
+        log.debug("REST request to save Destination with Message : {}", destinationMessagesDTO);
+        if (destinationMessagesDTO.getId() != 0) { //null
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new destination with messages cannot already have an ID")).body(null);
+        }
+        DestinationMessage result = destinationMessageService.saveMessage(destinationMessagesDTO);
+        return ResponseEntity.created(new URI("/api/destination_messages/send" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }

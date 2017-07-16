@@ -8,10 +8,19 @@ import java.util.Date;
  */
 public class GroupDTO implements Serializable {
 
+    private Long id;
     private Long ownerId;
     private String name;
     private String logo;
     private Date creationDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getOwnerId() {
         return ownerId;

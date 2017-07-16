@@ -48,44 +48,45 @@ public class GroupUserResource {
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
                 .body(result);
     }
-
+    /*
     @PutMapping("/groupusers")
     @Timed
-    public ResponseEntity<GroupUser> updateUser(@Valid @RequestBody GroupUserDTO userDTO) throws URISyntaxException {
-        log.debug("REST request to update Group User : {}", userDTO);
-        if (userDTO.getId() == 0) {//null
-            return createUser(userDTO);
+    public ResponseEntity<GroupUser> updateGroupUser(@Valid @RequestBody GroupUserDTO groupUserDTO) throws URISyntaxException {
+        log.debug("REST request to update Group User : {}", groupUserDTO);
+        if (groupUserDTO.getId() == 0) {//null
+            return createUser(groupUserDTO);
         }
-        GroupUser result = groupUserService.update(userDTO);
+        GroupUser result = groupUserService.update(groupUserDTO);
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userDTO.getId().toString()))
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, groupUserDTO.getId().toString()))
                 .body(result);
     }
 
     @PutMapping("/groupusers/{id}")
     @Timed
-    public ResponseEntity<GroupUser> updateUserById(@Valid @RequestBody GroupUserDTO userDTO, @PathVariable Long id) throws URISyntaxException {
+    public ResponseEntity<GroupUser> updateGroupUserById(@Valid @RequestBody GroupUserDTO userDTO, @PathVariable Long id) throws URISyntaxException {
         log.debug("REST request to update Group User with Id: {}", userDTO);
         GroupUser result = groupUserService.updateById(userDTO, id);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userDTO.getId().toString()))
                 .body(result);
     }
+    */
 
     @GetMapping("/groupusers")
     @Timed
-    public ResponseEntity<List<GroupUser>> getAllUsers(@ApiParam Pageable pageable) throws URISyntaxException {
-        log.debug("REST request to get a page of Users");
+    public ResponseEntity<List<GroupUser>> getAllGroupUsers(@ApiParam Pageable pageable) throws URISyntaxException {
+        log.debug("REST request to get a page of Group Users");
         Page<GroupUser> page = groupUserService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/groupusers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     @GetMapping("/groupusers/{id}")
     @Timed
-    public ResponseEntity<GroupUser> getUser(@PathVariable Long id) {
+    public ResponseEntity<GroupUser> getFindOneGroupUser(@PathVariable Long id) {
         log.debug("REST request to get Group User : {}", id);
-        GroupUser user = groupUserService.findOne(id);
-        return Optional.ofNullable(user)
+        GroupUser groupUser = groupUserService.findOne(id);
+        return Optional.ofNullable(groupUser)
                 .map(result -> new ResponseEntity<>(
                         result,
                         HttpStatus.OK))
@@ -93,7 +94,7 @@ public class GroupUserResource {
     }
     @DeleteMapping("/groupusers/{id}")
     @Timed
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteGroupUser(@PathVariable Long id) {
         log.debug("REST request to delete Group User : {}", id);
         groupUserService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();

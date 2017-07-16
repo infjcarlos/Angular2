@@ -56,4 +56,14 @@ public class MessageResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/messages");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+    @PutMapping("/messages/{id}")
+    @Timed
+    public ResponseEntity<Message> updateMessageById(@Valid @RequestBody MessageDTO messageDTO, @PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to update Message with Id: {}", messageDTO);
+        Message result = messageService.updateById(messageDTO, id);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, messageDTO.getId().toString()))
+                .body(result);
+    }
 }
