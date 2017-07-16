@@ -1,11 +1,9 @@
 package com.soft.chat.backend.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.List;
+
 /**
  * Created by jcori on 6/30/2017.
  */
@@ -22,6 +20,15 @@ public class User {
     private String username;
     private String password;
     private String status;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<DestinationMessage> destinationMessages;
+
+    public User(){}
+
+    public User(List<DestinationMessage> destinationMessages) {
+        this.destinationMessages = destinationMessages;
+    }
 
     public String getUsername() {
         return username;

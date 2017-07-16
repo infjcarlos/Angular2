@@ -1,8 +1,10 @@
 package com.soft.chat.backend.service.impl;
 
+import com.soft.chat.backend.domain.DestinationMessage;
 import com.soft.chat.backend.domain.Message;
 import com.soft.chat.backend.domain.Status;
 import com.soft.chat.backend.domain.User;
+import com.soft.chat.backend.repository.DestinationMessageRepository;
 import com.soft.chat.backend.repository.MessageRepository;
 import com.soft.chat.backend.repository.StatusRepository;
 import com.soft.chat.backend.repository.UserRepository;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +33,13 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final StatusRepository statusRepository;
     private final UserRepository userRepository;
+    private final DestinationMessageRepository destinationMessageRepository;
 
-    public MessageServiceImpl(MessageRepository messageRepository, StatusRepository statusRepository, UserRepository userRepository){
+    public MessageServiceImpl(MessageRepository messageRepository, StatusRepository statusRepository, UserRepository userRepository, DestinationMessageRepository destinationMessageRepository) {
         this.messageRepository = messageRepository;
         this.statusRepository = statusRepository;
         this.userRepository = userRepository;
+        this.destinationMessageRepository = destinationMessageRepository;
     }
 
     @Override
@@ -59,11 +64,6 @@ public class MessageServiceImpl implements MessageService {
     public Page<Message> findAll(Pageable pageable) {
         log.debug("Request to get all message");
         return messageRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<Message> findAllMessage(String ownerID) {
-        return null;
     }
 
     @Override
@@ -92,8 +92,37 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void deleteAllMessage(Long ownerId) {
-        //Message message = messageRepository.findOne(ownerId);
+        log.debug("Request to delete Message : {}", ownerId);
         List<Message> messages = messageRepository.findAllMessage(ownerId);
+        List<DestinationMessage> dm = new ArrayList<>();
+
+        for(Message msg: messages){
+            System.out.println(" - "+msg.getId());
+
+            DestinationMessage destinationMessage = new DestinationMessage();
+            destinationMessage = destinationMessageRepository.getAllDM( msg.getId() ) ;
+
+            dm.add(destinationMessage);
+            System.out.println("-----------");
+
+        }
+        for(DestinationMessage destinationMessage : dm){
+            destinationMessageRepository.delete(destinationMessage.getId());
+        }
+        for(Message msg : messages){
+            messageRepository.delete(msg.getId());
+        }
+
+        //Message message = messageRepository.findOne(ownerId);
         System.out.println(messages.size());
+    }
+
+    @Override
+    public void deleteAllMessageT(Long ownerId) {
+        log.debug("Request to delete Message ALL : {}", ownerId);
+        List<Message> messages = messageRepository.findAllMessage(ownerId);
+        for(Message msg : messages){
+            messageRepository.delete(msg.getId());
+        }
     }
 }

@@ -106,6 +106,6 @@ public class DestinationMessageServiceImpl implements DestinationMessageService 
 
     @Override
     public void delete(Long id) {
-
+        destinationMessageRepository.delete(id);
     }
 }

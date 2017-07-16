@@ -13,10 +13,10 @@ import java.util.List;
 public interface MessageService {
     Message save(MessageDTO messageDTO);
     Page<Message> findAll(Pageable pageable);
-    List<Message> findAllMessage(String ownerID);
     Message findOne(Long id);
     Message update(MessageDTO messageDTO);
     Message updateById(MessageDTO messageDTO, Long id);
     void delete(Long id);
     void deleteAllMessage(Long ownerId);
+    void deleteAllMessageT(Long ownerId);
 }

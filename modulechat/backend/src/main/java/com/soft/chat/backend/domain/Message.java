@@ -2,6 +2,7 @@ package com.soft.chat.backend.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jcori on 7/12/2017.
@@ -22,6 +23,15 @@ public class Message {
 
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
+    private List<DestinationMessage> destinationMessages;
+
+    public Message() { }
+
+    public Message(List<DestinationMessage> destinationMessages) {
+        this.destinationMessages = destinationMessages;
+    }
 
     public Long getId() {
         return id;

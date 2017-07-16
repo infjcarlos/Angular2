@@ -71,7 +71,8 @@ public class MessageResource {
     @Timed
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         log.debug("REST request to delete Message all : {}", id);
-        messageService.deleteAllMessage(id);
+        //messageService.deleteAllMessage(id);
+        messageService.deleteAllMessageT(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

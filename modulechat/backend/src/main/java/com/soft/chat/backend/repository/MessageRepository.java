@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface MessageRepository extends JpaRepository<Message,Long> {
 
-    @Query("select message from Message message where message.user =:ownerId")
+    @Query("select message from Message message where message.user.id =:ownerId")
     List<Message> findAllMessage(@Param("ownerId") Long ownerId);
 }
