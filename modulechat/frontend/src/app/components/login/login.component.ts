@@ -1,7 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from './login.service';
 import { NgForm, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,13 @@ import { NgForm, Validators, AbstractControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private router: Router/*, @Inject(LoginService) private chatService:LoginService*/ ) { }
+  list =[];
+  constructor( 
+    /*private loginService: LoginService,*/
+    private route: ActivatedRoute, 
+    private router: Router) { /*@Inject(LoginService) private chatService:LoginService*/
+      //this.list = chatService.getClients();
+     }
   /*
   goToLogin(){
     this.router.navigate( ['/login'], {queryParams: {sessionId: new Date().getTime()}} );
@@ -34,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem("user",null);
   }
 
 }

@@ -13,9 +13,17 @@ export class LoginService {
 
   private apiUrl:String = 'http://localhost:9090/';
 
-  constructor(private http:Http, private router: Router) { }
-/*
+  constructor(
+            private http:Http, 
+            private route: ActivatedRoute, 
+            private router: Router) { }
+
+  
+  getClients():string[]{
+    return['car','demo','sa','ss']
+  }
   login(loginObj:any):any{
+    /*
     return  this.http.get(this.apiUrl+'users/login/'+loginObj.userName+'/'+loginObj.password).toPromise()
     .then(
       (res:Response) => {
@@ -30,11 +38,13 @@ export class LoginService {
       }
     )
     .catch((this.handleError)) ;
+    */
   }
-
+/*
   private handleError(error: any): Promise<any> {
      console.error('An error occurred', error);
      return Promise.reject(error.message || error);
   }
     */
+    
 }
