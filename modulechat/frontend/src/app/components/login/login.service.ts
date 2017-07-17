@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
+
+//import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class LoginService {
@@ -14,9 +15,9 @@ export class LoginService {
   private apiUrl:String = 'http://localhost:9090/';
 
   constructor(
-            private http:Http, 
             private route: ActivatedRoute, 
-            private router: Router) { }
+            private router: Router,
+            private http:Http ) { }
 
   
   getClients():string[]{

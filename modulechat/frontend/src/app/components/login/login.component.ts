@@ -13,9 +13,9 @@ export class LoginComponent implements OnInit {
 
   list =[];
   constructor( 
-    /*private loginService: LoginService,*/
+    private chatService:LoginService,
     private route: ActivatedRoute, 
-    private router: Router) { /*@Inject(LoginService) private chatService:LoginService*/
+    private router: Router) { /**/
       //this.list = chatService.getClients();
      }
   /*
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem("user",null);
+    //localStorage.setItem("user",null);
   }
 
 }
