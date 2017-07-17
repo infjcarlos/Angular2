@@ -14,7 +14,7 @@ export class LoginService {
   private apiUrl:String = 'http://localhost:9090/';
 
   constructor(private http:Http, private router: Router) { }
-
+/*
   login(loginObj:any):any{
     return  this.http.get(this.apiUrl+'users/login/'+loginObj.userName+'/'+loginObj.password).toPromise()
     .then(
@@ -36,4 +36,5 @@ export class LoginService {
      console.error('An error occurred', error);
      return Promise.reject(error.message || error);
   }
+    */
 }
