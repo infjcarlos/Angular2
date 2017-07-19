@@ -26,13 +26,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate( ['/register'], {queryParams: {sessionId: new Date().getTime()}} );
   }*/
   onSubmitLogin(form:any){
-    /*
     var res = this.chatService.login({
                 "email":   form.email,
                 "psw":   form.psw
           });
-              */
-    //console.log(res);
   }
 
   goToHome(){
